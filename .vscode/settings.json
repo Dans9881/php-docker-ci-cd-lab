@@ -1,0 +1,5 @@
+{
+  "intelephense.inlayHints.parameterNames.enabled": false,
+  "intelephense.inlayHints.parameterTypes.enabled": false,
+  "intelephense.inlayHints.returnTypes.enabled": false
+}

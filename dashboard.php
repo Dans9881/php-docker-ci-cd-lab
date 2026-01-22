@@ -1,7 +1,4 @@
-<?php
-include "auth.php";
-?>
-
+<?php include "auth.php"; ?>
 <html>
     <head>
         <title>Dashboard</title>

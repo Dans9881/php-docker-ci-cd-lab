@@ -6,11 +6,12 @@
         <script src="assets/js/jquery-3.7.1.min.js"></script>
     </head>
     <body>
-    <form id="loginForm">
+    <form id="loginForm" method="post">
         <p id="error" class="error" style="color:red;"></p>
             Username <input type="text" class="username" name="username" required><br>
             Password <input type="password" class="password" name="password" required><br>
-            <button type="submit" class="btn-login" name="action" value="login">Login</button>
+            <input type="hidden" class="btn-login" name="action" value="login">
+            <button type="submit">Login</button>
     </form>
     <a href="register.php" class="btn-register">Register</a>
     <script>
@@ -24,13 +25,15 @@
                     dataType: 'json',
                     success: function (res) {
                         if (res.status) {
-                            window.location.href = 'dashboard.php';
+                            setTimeout(function(){
+                            window.location.href = "dashboard.php";
+                        }, 1500);
                         } else {
                             $('#error').text(res.message);
                         }
                     },
                     error: function () {
-                        $('#error').text('Terjadi Kesalahan Server');
+                        $('#error').text('Username atau Password Salah!');
                     }
                 });
             });

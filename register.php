@@ -1,48 +1,48 @@
-<?php
-session_start();
-include "koneksi.php";
-
-if (isset($_POST['action']) && $_POST['action'] == 'register') {
-    $username = $_POST['username'];
-    $password = $_POST['password'];
-
-    if (empty($username)) {
-        echo "username kosong!";
-        exit;
-    } else if (empty($password)) {
-        echo "password kosong!";
-        exit;
-    }
-    
-    $pw_hash = password_hash($password,PASSWORD_DEFAULT);
-    $stmt = $conn->prepare("select username from users where username=?");
-    $stmt->bind_param("s", $username);
-    $stmt->execute();
-    $stmt->store_result();
-
-    if ($stmt->num_rows > 0) {
-        echo "Username sudah ada!";
-        exit;
-    }
-
-    $stmt = $conn->prepare("insert into users (username, password) values (?, ?)");
-    $stmt->bind_param("ss", $username, $pw_hash);
-    $stmt->execute();
-    echo "Registrasi Berhasil!";
-}
-?>
-
+<?php session_start(); ?>
+<!DOCTYPE html>
 <html>
     <head>
         <title>Registrasi</title>
+        <script src="assets/js/jquery-3.7.1.min.js"></script>
     </head>
     <body>
-        <form action="register.php" method="post">
+        <form id="registerForm" method="post">
+            <p id="error" class="error" style="color:red;"></p>
+            <p id="success" class="success" style="color:green;"></p>
             Username <input type="text" class="username" name="username" required><br>
             Password <input type="password" class="password" name="password" required><br>
-            <button type="submit" class="btn-register" name="action" value="register">Register</button>
+            <input type="hidden" class="btn-register" name="action" value="register">
+            <button type="submit">Register</button>
         </form>
-        <a href="index.php" class="btn-login">Login</a>
+        <a href="index.php" class="btn-login">Sudah Punya Akun? Login</a>
+        <script>
+            $(document).ready(function () {
+                $('#registerForm').on('submit', function (event) {
+                    event.preventDefault();
+                    $.ajax({
+                        url: 'api.php',
+                        type: 'POST',
+                        data: $(this).serialize(),
+                        dataType: 'json',
+                        success: function (res) {
+                            $('#error').text('');
+                            $('#success').text('');
+                            if (res.status) {
+                                $('#success').text(res.message);
+                                setTimeout(function(){
+                                    window.location.href = "index.php";
+                                }, 1500);
+                            } else {
+                                $('#error').text(res.message);
+                            }
+                        },
+                        error: function () {
+                            $('#error').text('Username Sudah Terdaftar!');
+                        }
+                    });
+                });
+            });
+        </script>
         <style>
         .btn-login {
             display: inline-block;
