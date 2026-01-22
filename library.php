@@ -3,10 +3,12 @@ class AppDB {
     private static ?AppDB $instance = null;
     private $conn;
     private function __construct() {
-        $hostname = "localhost";
-        $username = "root";
-        $password = "";
-        $database = "project";
+        $config = require __DIR__ . '/config.php';
+
+        $hostname = $config['db_host'];
+        $username = $config['db_user'];
+        $password = $config['db_pass'];
+        $database = $config['db_name'];
 
         $this->conn = new mysqli($hostname, $username, $password, $database);
 
