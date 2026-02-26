@@ -2,35 +2,41 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>My Project</title>
+    <title>Registrasi</title>
     <script src="assets/js/jquery-3.7.1.min.js"></script>
 </head>
 <body>
 
-<form id="loginForm">
+<form id="registerForm">
     <p id="error" style="color:red;"></p>
+    <p id="success" style="color:green;"></p>
     Username <input type="text" class="username" required><br>
     Password <input type="password" class="password" required><br>
-    <button type="submit">Login</button>
+    <button type="submit">Register</button>
 </form>
-<a href="registrasi.php" class="btn-register">Register</a>
+<a href="index.php" class="btn-login">Sudah punya akun? Login</a>
 <script>
 $(document).ready(function () {
-    $('#loginForm').on('submit', function(e) {
+    $('#registerForm').on('submit', function(e) {
         e.preventDefault();
         const formData = {
             username: $('.username').val(),
             password: $('.password').val()
         };
         $.ajax({
-            url: 'api/login.php',
+            url: 'api/register.php',
             type: 'POST',
             contentType: 'application/json',
             data: JSON.stringify(formData),
             dataType: 'json',
             success: function (res) {
+                $('#error').text('');
+                $('#success').text('');
                 if (res.status) {
-                    window.location.href = "dashboard.php";
+                    $('#success').text(res.message);
+                    setTimeout(function(){
+                        window.location.href = "index.php";
+                    }, 1000);
                 } else {
                     $('#error').text(res.message);
                 }
@@ -47,7 +53,7 @@ $(document).ready(function () {
 });
 </script>
 <style>
-.btn-register {
+.btn-login {
     display: inline-block;
     margin-top: 10px;
     padding: 8px 14px;
