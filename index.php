@@ -7,7 +7,7 @@
 </head>
 <body>
 <h1>AUTO DEPLOY WORKING 🔥</h1>
-<h1>WOYYY BISA DONGGG ANJERRRRRR</h1>
+<h1>WOYYY BISA DONGGG</h1>
 <form id="loginForm">
     <p id="error" style="color:red;"></p>
     Username <input type="text" class="username" required><br>
