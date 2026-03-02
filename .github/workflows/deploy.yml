@@ -15,12 +15,17 @@ jobs:
           echo "Masuk ke folder project"
           cd /home/server/web/app/my-project
 
+          echo "Simpan commit lama untuk rollback"
+          CURRENT_COMMIT=$(git rev-parse HEAD)
+          echo $CURRENT_COMMIT > .last_commit_backup
+
           echo "Ambil update terbaru"
           git fetch origin
+
+          echo "Deploy commit terbaru"
           git reset --hard origin/main
 
-          echo "Restart Docker"
-          cd /home/server/web
-          docker compose restart php nginx
+          echo "Bersihkan file tidak terpakai"
+          git clean -fd
 
-          echo "Deploy selesai"
+          echo "Deploy selesai tanpa restart docker"
