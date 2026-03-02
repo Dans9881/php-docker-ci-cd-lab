@@ -8,9 +8,9 @@ deploy_production:
   only:
     - main
   script:
-    - echo "🚀 Starting deployment..."
+    - echo "Starting deployment..."
     - cd /home/server/web/app/my-project
     - git pull origin main
     - docker compose down
     - docker compose up -d --build
-    - echo "✅ Deployment finished!"
+    - echo "Deployment finished!"
