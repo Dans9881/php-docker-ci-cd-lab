@@ -1,16 +1,21 @@
-stages:
-  - deploy
+name: Deploy Production
 
-deploy_production:
-  stage: deploy
-  tags:
-    - production
-  only:
-    - main
-  script:
-    - echo "Starting deployment..."
-    - cd /home/server/web/app/my-project
-    - git pull origin main
-    - docker compose down
-    - docker compose up -d --build
-    - echo "Deployment finished!"
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: self-hosted
+
+    steps:
+      - name: Update repository
+        run: |
+          cd /home/server/web/app/my-project
+          git pull origin main
+
+      - name: Restart containers
+        run: |
+          cd /home/server/web
+          docker compose restart php nginx
