@@ -2,11 +2,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>My Project Test</title>
+    <title>My Project</title>
     <script src="assets/js/jquery-3.7.1.min.js"></script>
 </head>
 <body>
 <h1>AUTO DEPLOY WORKING 🔥</h1>
+<h1>WOYYY BISA DONGGG ANJERRRRRR</h1>
 <form id="loginForm">
     <p id="error" style="color:red;"></p>
     Username <input type="text" class="username" required><br>
