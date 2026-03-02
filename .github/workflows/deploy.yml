@@ -1,0 +1,18 @@
+name: Deploy Production
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: self-hosted
+
+    steps:
+      - name: Deploy to Server
+        run: |
+          cd /home/server/web/app/my-project
+          git pull origin main
+          docker compose down
+          docker compose up -d --build
