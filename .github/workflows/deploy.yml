@@ -10,9 +10,7 @@ jobs:
     runs-on: self-hosted
 
     steps:
-      - name: Deploy to Server
+      - name: Restart PHP & Nginx
         run: |
-          cd /home/server/web/app/my-project
-          git pull origin main
-          docker compose down
-          docker compose up -d --build
+          cd /home/server/web
+          docker compose restart php nginx

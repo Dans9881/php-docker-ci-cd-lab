@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>My Project</title>
+    <title>My Project Test</title>
     <script src="assets/js/jquery-3.7.1.min.js"></script>
 </head>
 <body>
