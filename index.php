@@ -6,7 +6,6 @@
     <script src="assets/js/jquery-3.7.1.min.js"></script>
 </head>
 <body>
-<h1>AUTO DEPLOY WORKING 🔥</h1>
 <h1>WOYYY BISA DONGGG</h1>
 <form id="loginForm">
     <p id="error" style="color:red;"></p>
