@@ -1,4 +1,4 @@
-name: Deploy Production
+name: Auto Deploy Production
 
 on:
   push:
@@ -10,7 +10,17 @@ jobs:
     runs-on: self-hosted
 
     steps:
-      - name: Restart PHP & Nginx
+      - name: Deploy to Server
         run: |
+          echo "Masuk ke folder project"
+          cd /home/server/web/app/my-project
+
+          echo "Ambil update terbaru"
+          git fetch origin
+          git reset --hard origin/main
+
+          echo "Restart Docker"
           cd /home/server/web
           docker compose restart php nginx
+
+          echo "Deploy selesai"
