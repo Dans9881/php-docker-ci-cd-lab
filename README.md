@@ -1,40 +1,47 @@
-# My Project – Simple PHP Web App
+# PHP Docker CI/CD Lab
 
-Deskripsi singkat:
-Aplikasi web sederhana berbasis PHP untuk login, dashboard, dan API endpoint.
+A simple PHP web application deployed using containerization and CI/CD pipeline in a self-hosted Linux server environment.
 
-## Fitur
-- Login & autentikasi user
-- Dashboard sederhana
-- REST API endpoint (api.php)
-- Struktur project modular
+## Features
+- User authentication (login system)
+- Simple dashboard
+- REST API endpoint
+- Automatic deployment using CI/CD pipeline
 
-## Teknologi
-- PHP (native)
-- HTML, CSS, JavaScript
-- MySQL (optional / planned)
+## Tech Stack
+- PHP (Native)
+- Docker
+- Nginx
+- GitHub Actions
+- Prometheus
+- Grafana
 
-## Cara Menjalankan
-1. Clone repo:
-   git clone https://gitlab.com/saidabdan12/my-project.git
+## Architecture
 
-2. Pindahkan ke folder htdocs (XAMPP/Laragon)
+```mermaid
+flowchart TD
 
-3. Jalankan via browser:
-   http://localhost/my-project
+A[Developer Push Code] --> B[GitHub Repository]
+B --> C[GitHub Actions CI/CD]
+C --> D[Self Hosted Linux Server]
 
-## Catatan
-Project ini dibuat sebagai portfolio untuk melamar posisi Web Developer / Backend Developer.
+D --> E[Docker Container - PHP App]
+D --> F[Nginx Reverse Proxy]
+D --> G[Prometheus Monitoring]
+D --> H[Grafana Dashboard]
 
-## Setup Database
+G --> H
+```
 
-1. Create database:
-   CREATE DATABASE project;
+## Local Development
 
-2. Import file:
-   database.sql
+Clone repository
 
-3. Copy config file:
-   cp config.example.php config.php
+git clone https://github.com/username/php-docker-ci-cd-lab
 
-4. Edit config.php sesuai DB lokal
+Run locally
+
+docker compose up -d
+
+## Notes
+This project was built as a personal lab environment to practice backend development, containerization, CI/CD automation, and monitoring infrastructure.
