@@ -37,7 +37,7 @@ G --> H
 
 Clone repository
 
-git clone https://github.com/username/php-docker-ci-cd-lab
+git clone https://github.com/Dans9881/php-docker-ci-cd-lab
 
 Run locally
 
