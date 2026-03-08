@@ -1,4 +1,4 @@
-name: Build and Push Docker Image
+name: Build Push and Deploy
 
 on:
   push:
@@ -6,11 +6,11 @@ on:
       - main
 
 jobs:
-  docker:
+  build:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
+      - name: Checkout
         uses: actions/checkout@v4
 
       - name: Login Docker Hub
@@ -24,3 +24,17 @@ jobs:
 
       - name: Push image
         run: docker push dans9881/php-docker-ci-cd-lab:latest
+
+  deploy:
+    runs-on: self-hosted
+    needs: build
+
+    steps:
+      - name: Deploy container
+        run: |
+          cd /srv/apps/php-docker-ci-cd-lab
+
+          docker pull dans9881/php-docker-ci-cd-lab:latest
+
+          docker compose down
+          docker compose up -d
