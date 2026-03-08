@@ -7,10 +7,16 @@ on:
 
 env:
   IMAGE_NAME: dans9881/php-docker-ci-cd-lab
+  APP_PATH: /srv/apps/php-docker-ci-cd-lab
+
+concurrency:
+  group: production-deploy
+  cancel-in-progress: true
 
 jobs:
+
   build:
-    name: Build and Push Image
+    name: Build & Push Docker Image
     runs-on: ubuntu-latest
 
     steps:
@@ -27,7 +33,6 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: Generate Image Tag
-        id: vars
         run: echo "TAG=${GITHUB_SHA::7}" >> $GITHUB_ENV
 
       - name: Build and Push Docker Image
@@ -42,24 +47,29 @@ jobs:
           cache-to: type=gha,mode=max
 
   deploy:
-    name: Deploy to Production Server
+    name: Deploy to Production
     runs-on: self-hosted
     needs: build
 
     steps:
       - name: Deploy Application
         run: |
-          echo "Starting deployment..."
+          set -e
 
-          cd /srv/apps/php-docker-ci-cd-lab
+          echo "Starting deployment"
 
-          echo "Pull latest image"
+          cd $APP_PATH
+
+          echo "Pull latest repository"
+          git pull origin main
+
+          echo "Pull latest Docker image"
           docker compose pull
 
-          echo "Restart containers"
-          docker compose up -d
+          echo "Recreate containers"
+          docker compose up -d --force-recreate --remove-orphans
 
-          echo "Remove unused images"
-          docker image prune -f
+          echo "Cleaning unused Docker images"
+          docker image prune -af
 
-          echo "Deployment finished"
+          echo "Deployment finished successfully"
