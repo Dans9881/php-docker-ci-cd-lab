@@ -3,15 +3,15 @@
 <html>
 <head>
     <title>Registrasi</title>
-    <script src="assets/js/jquery-3.7.1.min.js"></script>
+    <script src="./assets/js/jquery-3.7.1.min.js"></script>
 </head>
 <body>
 
 <form id="registerForm">
     <p id="error" style="color:red;"></p>
     <p id="success" style="color:green;"></p>
-    Username <input type="text" class="username" required><br>
-    Password <input type="password" class="password" required><br>
+    Username <input type="text" name="username" class="username" required><br>
+    Password <input type="password" name="password" class="password" required><br>
     <button type="submit">Register</button>
 </form>
 <a href="index.php" class="btn-login">Sudah punya akun? Login</a>
