@@ -13,7 +13,7 @@ jobs:
       - name: Deploy to Server
         run: |
           echo "Masuk ke folder project"
-          cd /home/server/web/app/my-project
+          cd /srv/apps/php-docker-ci-cd-lab
 
           echo "Simpan commit lama untuk rollback"
           CURRENT_COMMIT=$(git rev-parse HEAD)
