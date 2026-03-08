@@ -1,12 +1,12 @@
 services:
 
   nginx:
-    image: nginx:alpine
+    image: nginx:latest
     container_name: cicd-nginx
-    restart: always
 
     volumes:
-      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+      - ./src:/var/www/html
 
     depends_on:
       - app
@@ -24,7 +24,6 @@ services:
   app:
     image: dans9881/php-docker-ci-cd-lab:latest
     container_name: cicd-php
-    restart: always
 
     depends_on:
       - mysql
@@ -38,15 +37,14 @@ services:
     restart: always
 
     environment:
-      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
-      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_ROOT_PASSWORD: Password22_
+      MYSQL_DATABASE: project
 
     volumes:
       - mysql_data:/var/lib/mysql
 
     networks:
       - webnet
-
 
 volumes:
   mysql_data:
