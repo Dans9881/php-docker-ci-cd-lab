@@ -60,8 +60,9 @@ jobs:
 
           cd $APP_PATH
 
-          echo "Pull latest repository"
-          git pull origin main
+          echo "Sync repository with GitHub"
+          git fetch origin
+          git reset --hard origin/main
 
           echo "Pull latest Docker image"
           docker compose pull
