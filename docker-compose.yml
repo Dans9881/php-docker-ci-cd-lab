@@ -25,6 +25,9 @@ services:
     image: dans9881/php-docker-ci-cd-lab:latest
     container_name: cicd-php
 
+    env_file:
+    - .env
+
     depends_on:
       - mysql
 
@@ -37,8 +40,8 @@ services:
     restart: always
 
     environment:
-      MYSQL_ROOT_PASSWORD: Password22_
-      MYSQL_DATABASE: project
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
 
     volumes:
       - mysql_data:/var/lib/mysql
