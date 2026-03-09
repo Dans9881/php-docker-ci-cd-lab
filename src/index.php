@@ -2,17 +2,47 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>My Project</title>
+    <title>Login | CI Project</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="assets/js/jquery-3.7.1.min.js"></script>
+    <style>
+        body{
+            background: #f4f6f9;
+            height:100vh;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+        }
+        .login-card{
+            width:350px;
+        }
+    </style>
 </head>
 <body>
-<form id="loginForm">
-    <p id="error" style="color:red;"></p>
-    Username <input type="text" class="username" required><br>
-    Password <input type="password" class="password" required><br>
-    <button type="submit">Login</button>
-</form>
-<a href="registrasi.php" class="btn-register">Register</a>
+<div class="card shadow login-card">
+    <div class="card-body">
+        <h4 class="text-center mb-4">Login</h4>
+        <p id="error" class="text-danger"></p>
+        <form id="loginForm">
+            <div class="mb-3">
+                <label class="form-label">Username</label>
+                <input type="text" class="form-control username" required>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Password</label>
+                <input type="password" class="form-control password" required>
+            </div>
+            <button type="submit" class="btn btn-primary w-100">
+                Login
+            </button>
+        </form>
+        <div class="text-center mt-3">
+            <a href="registrasi.php" class="btn btn-success btn-sm">
+                Register
+            </a>
+        </div>
+    </div>
+</div>
 <script>
 $(document).ready(function () {
     $('#loginForm').on('submit', function(e) {
@@ -45,16 +75,5 @@ $(document).ready(function () {
     });
 });
 </script>
-<style>
-.btn-register {
-    display: inline-block;
-    margin-top: 10px;
-    padding: 8px 14px;
-    background: #198754;
-    color: white;
-    text-decoration: none;
-    border-radius: 4px;
-}
-</style>
 </body>
 </html>
