@@ -47,7 +47,7 @@ jobs:
           cache-to: type=gha,mode=max
 
   deploy:
-    name: Deploy to Production
+    name: Deploy to Server
     runs-on: self-hosted
     needs: build
 
