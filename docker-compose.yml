@@ -13,12 +13,12 @@ services:
       - app
 
     networks:
-      - webnet
+      - web
 
     labels:
       - "traefik.enable=true"
-      - "traefik.docker.network=webnet"
-      - "traefik.http.routers.cicd.rule=Host(`lab.kuyen.online`)"
+      - "traefik.docker.network=web"
+      - "traefik.http.routers.cicd.rule=Host(`systems.kuyen.online`)"
       - "traefik.http.routers.cicd.entrypoints=web"
       - "traefik.http.services.cicd.loadbalancer.server.port=80"
 
@@ -38,7 +38,7 @@ services:
       - mysql
 
     networks:
-      - webnet
+      - web
 
 
   mysql:
@@ -51,12 +51,12 @@ services:
       MYSQL_DATABASE: ${MYSQL_DATABASE}
 
     volumes:
-      - /srv/volumes/mysql:/var/lib/mysql
+      - /srv/databases/mysql:/var/lib/mysql
 
     networks:
-      - webnet
+      - web
 
 
 networks:
-  webnet:
+  web:
     external: true
