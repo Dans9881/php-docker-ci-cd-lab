@@ -1,6 +1,6 @@
 services:
   nginx:
-    image: dans9881/php-docker-ci-cd-lab-nginx:latest
+    image: dans9881/php-docker-ci-cd-lab-nginx:${IMAGE_TAG}
     container_name: cicd-nginx
     restart: unless-stopped
     depends_on:
@@ -17,7 +17,7 @@ services:
       - "traefik.http.services.cicd.loadbalancer.server.port=80"
 
   app:
-    image: dans9881/php-docker-ci-cd-lab-php:latest
+    image: dans9881/php-docker-ci-cd-lab-php:${IMAGE_TAG}
     container_name: cicd-php
     restart: unless-stopped
     env_file:
