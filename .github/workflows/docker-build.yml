@@ -15,11 +15,13 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+
   build:
     name: Build & Push Docker Images
     runs-on: self-hosted
 
     steps:
+
       - name: Checkout repository
         uses: actions/checkout@v4
 
@@ -44,6 +46,8 @@ jobs:
           tags: |
             ${{ env.PHP_IMAGE_NAME }}:latest
             ${{ env.PHP_IMAGE_NAME }}:${{ env.TAG }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
 
       - name: Build & Push Nginx Image
         uses: docker/build-push-action@v6
@@ -54,6 +58,8 @@ jobs:
           tags: |
             ${{ env.NGINX_IMAGE_NAME }}:latest
             ${{ env.NGINX_IMAGE_NAME }}:${{ env.TAG }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
 
   deploy:
     name: Deploy to Server
@@ -61,18 +67,30 @@ jobs:
     needs: build
 
     steps:
+
       - name: Generate Image Tag
         run: echo "TAG=${GITHUB_SHA::7}" >> $GITHUB_ENV
 
       - name: Deploy Application
         run: |
           set -e
+
           cd $APP_PATH
 
           export IMAGE_TAG=${TAG}
+
           echo "Deploying image tag: $IMAGE_TAG"
 
+          echo "Pulling latest images..."
           docker compose pull
-          docker compose up -d --remove-orphans
 
+          echo "Starting containers..."
+          docker compose up -d --no-build --remove-orphans
+
+          echo "Waiting for container health check..."
+          sleep 10
+
+          echo "Cleaning old docker images..."
           docker image prune -af
+
+          echo "Deploy finished successfully!"
