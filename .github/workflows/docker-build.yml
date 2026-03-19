@@ -81,16 +81,10 @@ jobs:
 
           sed -i "s/^IMAGE_TAG=.*/IMAGE_TAG=${TAG}/" .env
 
-          echo "Pulling latest images..."
           docker compose pull
 
-          echo "Starting containers..."
           docker compose up -d --no-build --remove-orphans
 
-          echo "Waiting for container health check..."
           sleep 10
 
-          echo "Cleaning old docker images..."
           docker image prune -af
-
-          echo "Deploy finished successfully!"
