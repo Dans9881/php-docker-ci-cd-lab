@@ -1,18 +1,22 @@
 <?php
 
 $redis = new Redis();
-$redis->connect('redis', 6379);
+$redis->connect(getenv('REDIS_HOST'), getenv('REDIS_PORT'));
 
 if (!$redis->ping()) {
     die("Redis ga connect");
 }
 
 $conn = mysqli_connect(
-    "mysql",
-    "root",
-    getenv('MYSQL_PASSWORD') ?: 'root',
-    "project"
+    getenv('DB_HOST'),
+    getenv('DB_USER'),
+    getenv('DB_PASS'),
+    getenv('DB_NAME')
 );
+
+if (!$conn) {
+    die("MySQL error: " . mysqli_connect_error());
+}
 
 $userId = 1;
 $cacheKey = "user:$userId";
