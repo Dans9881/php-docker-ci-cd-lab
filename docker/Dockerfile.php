@@ -12,14 +12,18 @@ RUN curl -sS https://getcomposer.org/installer | php \
 
 WORKDIR /var/www/html
 
-# Copy source code
-COPY . /var/www/html
+# Copy source utama (web root)
+COPY src/ /var/www/html
+
+# Copy file tambahan di luar src
+COPY send.php /var/www/html
+COPY cache-user.php /var/www/html
+
+# Install dependency PHP (kalau ada composer.json di src)
+RUN composer install || true
 
 # Set permission
 RUN chown -R www-data:www-data /var/www/html
-
-# Install PHP dependencies (kalau ada composer.json)
-RUN composer install || true
 
 # Healthcheck
 HEALTHCHECK --interval=30s --timeout=5s --retries=3 \
